@@ -1,0 +1,28 @@
+2. To-Do List App with Categories
+Goal: DOM manipulation + localStorage
+
+Features:
+
+Add, edit, delete tasks
+
+Categories (Work, Personal, etc.)
+
+Mark as complete
+
+Save tasks in localStorage so they persist after refresh
+
+Filter by category or completion status
+
+Edge mastery: Handle empty category names, special characters, duplicate tasks.
+#################################################################################
+
+Flow*
+User input task in textbox 
+click add button
+(save in localStorage)
+new task appears
+tasks are orderd reverse (last are shown in top)
+user click done button
+(remove from localStorage)
+remove the task
+
