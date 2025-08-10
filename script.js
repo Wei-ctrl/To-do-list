@@ -1,9 +1,8 @@
 const taskInput = document.getElementById("add-task");
 const addButton = document.getElementById("add-btn");
 
-let id = 0;
-let taskList = [];
-
+let taskList = JSON.parse(localStorage.getItem('task')) || [];
+let id = taskList.length > 0 ? taskList[taskList.length - 1].id : 0;
 
 addButton.addEventListener("click", () => {
   if (taskInput.value) {
@@ -25,4 +24,13 @@ addButton.addEventListener("click", () => {
     taskElement.appendChild(doneBtn)
   }
 });
+
+function loadTasks(){
+    const taskContainer = document.getElementById('task-container')
+    if(taskList.length < 1){
+        const noTask = document.createElement('h3')
+        noTask.innerText = 'No Task'
+        taskContainer.appendChild(noTask)
+    }
+}
 
