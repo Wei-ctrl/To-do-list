@@ -4,13 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>To do list</h1>
-    <input type="text" id="add-task" placeholder="Enter new tasks" />
-    <button id="add-btn">Add</button>
-    <div id="task-container"></div>
+    <div class="container">
+      <div class="input-field">
+        <input type="text" id="add-task" placeholder="Enter new tasks" />
+        <button id="add-btn" class="add-btn">+</button>
+      </div>
+      <div class="main-container">
+        <div id="task-container"></div>
+        <h3 id="no-task">No Tasks</h3>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
