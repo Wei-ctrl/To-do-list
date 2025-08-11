@@ -16,16 +16,28 @@ loadTasks()
 });
 
 function createTasks() {  
-  const taskElement = document.createElement("div");
   const taskContainer = document.getElementById("task-container");
+  
+  taskContainer.innerHTML = "";
+
+    if (!taskList || taskList.length === 0) {
+        return; 
+    }
+  
+  taskList.forEach(task => {
+  const taskElement = document.createElement("div");
   taskContainer.appendChild(taskElement);
   const taskName = document.createElement("p");
-  taskName.innerText = JSON.parse(localStorage.getItem("task"))[id - 1].toDo;
+  taskName.innerText = task.toDo;
   //refreshes dont maintain the UI
   const doneBtn = document.createElement("button");
   doneBtn.innerText = "Done";
   taskElement.appendChild(taskName);
   taskElement.appendChild(doneBtn);
+
+  });
+
+  
 }
 
 function loadTasks() {
