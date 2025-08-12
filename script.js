@@ -5,9 +5,12 @@ let taskList = JSON.parse(localStorage.getItem("task")) || [];
 let id = taskList.length > 0 ? taskList[taskList.length - 1].id : 0;
 
 addButton.addEventListener("click", () => {
-  if (taskInput.value) {
+  if (noTagging(taskInput.value)) {
+    console.log(noTagging(taskInput.value));
+    
     id++;
-    const task = { id: id, toDo: taskInput.value };
+    const task = { id: id, toDo: noTagging(taskInput.value), categories : tagging(taskInput.value) };
+    console.log(task);
     taskList.push(task);
     localStorage.setItem("task", JSON.stringify(taskList));
     taskInput.value = "";
@@ -36,6 +39,19 @@ function createTasks() {
     doneBtn.classList.add('done-btn')
     doneBtn.innerText = "Done";
     taskBox.appendChild(taskName);
+    const categoryList = document.createElement('ul');
+    console.log(taskList);
+    
+    if(task.categories){
+    task.categories.forEach((item) => {
+      const category = document.createElement('li')
+      category.classList.add('category')
+      category.innerText = item;
+      categoryList.appendChild(category)
+    })
+    }
+    
+    taskBox.appendChild(categoryList)
     taskElement.appendChild(doneBtn);
     doneBtn.addEventListener("click", () => {
       taskList = taskList.filter((item) => item.toDo !== task.toDo);
@@ -62,6 +78,19 @@ function loadTasks() {
     createTasks();
     noTask.style.display = 'none'
   }
+}
+
+function tagging(text){
+  let matches = text.match(/#\w+/g);
+  return matches
+}
+
+function noTagging(text){
+  let withoutTag = text.replace(/#\w+/g, "").replace(/\s+/g, " ").trim();
+  if(withoutTag === ''){
+    return ''
+  }
+  return withoutTag
 }
 
 loadTasks();
