@@ -26,3 +26,8 @@ user click done button
 (remove from localStorage)
 remove the task
 
+######################################################3
+Done section
+Active section 
+All section
+

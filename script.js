@@ -6,8 +6,6 @@ let id = taskList.length > 0 ? taskList[taskList.length - 1].id : 0;
 
 addButton.addEventListener("click", () => {
   if (noTagging(taskInput.value)) {
-    console.log(noTagging(taskInput.value));
-    
     id++;
     const task = { id: id, toDo: noTagging(taskInput.value), categories : tagging(taskInput.value) };
     console.log(task);
@@ -17,6 +15,11 @@ addButton.addEventListener("click", () => {
     loadTasks();
   }
 });
+
+taskInput.addEventListener("keydown", (e) => {
+  console.log();
+  
+})
 
 function createTasks() {
   const taskContainer = document.getElementById("task-container");
@@ -40,6 +43,7 @@ function createTasks() {
     doneBtn.innerText = "Done";
     taskBox.appendChild(taskName);
     const categoryList = document.createElement('ul');
+    categoryList.classList.add('category-list')
     console.log(taskList);
     
     if(task.categories){
@@ -92,5 +96,29 @@ function noTagging(text){
   }
   return withoutTag
 }
+
+const theme = document.getElementById('theme-check')
+theme.addEventListener('click', () => {
+  const body = document.getElementById("page");
+  const sun = document.querySelector('.sun')
+  const moon = document.querySelector('.moon')
+  if (theme.checked) {
+    console.log('dark');
+    sun.style.display = 'none'
+    moon.style.display = 'block'
+    body.classList.toggle("dark");
+    
+
+  } else if (!theme.checked){
+    console.log('light');
+    sun.style.display = 'block'
+    moon.style.display = 'none'
+    body.classList.toggle("dark");
+  }
+
+})
+
+
+
 
 loadTasks();
