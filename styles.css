@@ -1,15 +1,20 @@
-body{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-         font-family: "Manrope", sans-serif;
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
 
-    background: #2A7B9B;
-background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+  background: #2a7b9b;
+  background: linear-gradient(
+    100deg,
+    rgba(42, 123, 155, 1) 0%,
+    rgba(87, 199, 133, 1) 50%,
+    rgba(237, 221, 83, 1) 100%
+  );
 }
 
-button{
-    background-color: #240a0a1f;
+button {
+  background-color: #240a0a1f;
   color: #e8e8e8;
   border: 0px solid #00000000;
   border-radius: 15px;
@@ -17,73 +22,108 @@ button{
   outline: 0;
   box-shadow: none;
   cursor: pointer;
-  display: none;
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
 }
 
-.input-field{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    width: 80%;
-    margin-top: 40px;
+.input-field {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  width: 80%;
+  margin-top: 40px;
 }
 
-input{
-    width: 100%;
-    height: 50px;
-    font-size: 20px;
-    padding-left: 20px;
-    background-color: #240a0a1f;
+input {
+  width: 100%;
+  height: 70px;
+  font-size: 20px;
+  padding-left: 20px;
+  background-color: #240a0a1f;
   color: #e8e8e8;
   border: 0px solid #00000000;
   border-radius: 13px;
   transition: all 0.5s ease;
   outline: 0;
   box-shadow: none;
-  }
+}
 
-  input::placeholder {
+input::placeholder {
   color: #e8e8e89e;
 }
 
 .add-btn {
-    width: 50px;
-    font-size: 25px;
-    margin-left: 5px;
-      border-radius: 13px;
-
+  font-size: 25px;
+  margin: 0;
+  margin-left: 10px;
+  border-radius: 13px;
 }
 
-.main-container{
-    margin-top: 10px;
-    width: 80%;
-    height: 80vh;
+.main-container {
+  margin-top: 10px;
+  width: 80%;
+  height: 80vh;
 }
 
-.task-item{
-    display: flex;
-    align-items: center;
-    padding-left: 30px;
-    height: 45px;
-    margin-bottom: 10px;
-    font-size: 18px;
-background-color: #240a0a1f;
+.task {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.task-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  height: auto;
+  font-size: 18px;
+  background-color: #240a0a1f;
   color: #e8e8e8;
   border: 0px solid #00000000;
-  border-radius: 10px;
+  border-radius: 13px;
   transition: all 0.5s ease;
   outline: 0;
   box-shadow: none;
 }
 
-.task-item :hover{
-    
+.task-item {
+  margin-left: 0;
+  overflow-wrap: anywhere;
 }
+
+.done-btn {
+  width: 0;
+  opacity: 0;
+  padding: 0;
+  transition: all 0.3s linear;
+  
+  overflow: hidden;
+  margin: 0;
+  margin-left: 0;
+  border-radius: 13px;
+  font-size: 16px;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.add-btn {
+  flex: 0 0 18%;
+}
+
+.task:hover .done-btn {
+  flex: 0 0 18%;
+  opacity: 1;
+  margin-left: 10px;
+  pointer-events: auto;
+}
+
+
+
 

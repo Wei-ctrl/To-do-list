@@ -24,13 +24,18 @@ function createTasks() {
   const reverseTasks = [...taskList].reverse();
   reverseTasks.forEach((task) => {
     const taskElement = document.createElement("div");
-    taskElement.classList.add('task-item')
+    taskElement.classList.add('task')
     taskContainer.appendChild(taskElement);
+    const taskBox = document.createElement('div')
+    taskBox.classList.add('task-box');
+    taskElement.appendChild(taskBox)
     const taskName = document.createElement("p");
+    taskName.classList.add('task-item')
     taskName.innerText = task.toDo;
     const doneBtn = document.createElement("button");
+    doneBtn.classList.add('done-btn')
     doneBtn.innerText = "Done";
-    taskElement.appendChild(taskName);
+    taskBox.appendChild(taskName);
     taskElement.appendChild(doneBtn);
     doneBtn.addEventListener("click", () => {
       taskList = taskList.filter((item) => item.toDo !== task.toDo);
