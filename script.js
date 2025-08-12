@@ -4,6 +4,7 @@ const mainContainerElement = document.getElementById('main-container');
 const noTaskElement = document.getElementById('no-task')
 const taskContainerElement = document.getElementById('task-container');
 
+
 let taskList = JSON.parse(localStorage.getItem("task")) || [];
 let id = taskList.length > 0 ? taskList[taskList.length - 1].id : 0;
 
@@ -11,7 +12,7 @@ let id = taskList.length > 0 ? taskList[taskList.length - 1].id : 0;
 function submitTask(){
 if (noTagging(taskInput.value)) {
     id++;
-    const task = { id: id, toDo: noTagging(taskInput.value), categories : tagging(taskInput.value) };
+    const task = { id: id, toDo: noTagging(taskInput.value), state : "active", categories : tagging(taskInput.value) };
     console.log(task);
     taskList.push(task);
     localStorage.setItem("task", JSON.stringify(taskList));
@@ -42,6 +43,7 @@ function createTasks() {
   reverseTasks.forEach((task) => {
     const taskElement = document.createElement("div");
     taskElement.classList.add('task')
+    taskElement.id = task.id;
     taskContainer.appendChild(taskElement);
     const taskBox = document.createElement('div')
     taskBox.classList.add('task-box');
@@ -69,19 +71,26 @@ function createTasks() {
     taskBox.appendChild(categoryList)
     taskElement.appendChild(doneBtn);
     doneBtn.addEventListener("click", () => {
-      taskList = taskList.filter((item) => item.toDo !== task.toDo);
-      console.log(task.toDo);
+      //taskList = taskList.filter((item) => item.id !== task.id);
+      //localStorage.setItem("task", JSON.stringify(taskList));
+      //set the state
+      //taskList.filter((item) => item.id !== task.id)[0].state = 'done'
+      task.state = 'done'
+      console.log(task.id);
+      const thisTask = document.getElementById(task.id)
+      console.log(thisTask.className);
+      thisTask.classList.add('done')
+      console.log(thisTask.className);
 
-      console.log(taskList);
-
-      localStorage.setItem("task", JSON.stringify(taskList));
-      taskContainer.removeChild(taskElement);
+      localStorage.setItem('task', JSON.stringify(taskList))
+      //taskContainer.removeChild(taskElement);
       loadTasks()
     });
   });
 }
 
 function loadTasks() {
+
   console.log(taskList.length);
   console.log(taskList);
 
@@ -140,6 +149,39 @@ theme.addEventListener('click', () => {
   }
 
 })
+
+
+  const sectionElement = document.querySelectorAll('.sections-child')
+  sectionElement.forEach((section) => {
+    section.addEventListener('click', () => {
+      sectionElement.forEach((item) => {
+        item.classList.remove('active')
+      })
+      section.classList.add('active')
+      //console.log(section.innerText)
+      switchSections(section.innerText)
+    })
+  })
+
+function switchSections(section){
+  if (section === "Active") {
+              console.log("active")
+    taskList.forEach(task => {
+      if(task.state === 'done'){
+        const hideElement = document.getElementById(task.id)
+       // hideElement.classList.add('hide-task')
+      }
+    });
+  } else if (section === "All"){
+        loadTasks()
+
+          console.log("all")
+  } else if (section === "Done"){
+          console.log("done")
+  }
+}
+
+ switchSections("All")
 
 
 loadTasks();
