@@ -5,7 +5,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: "Manrope", sans-serif;
- 
+
   background: #2a7b9b;
   background: linear-gradient(
     100deg,
@@ -125,7 +125,6 @@ input::placeholder {
   border-radius: 13px;
   font-size: 16px;
   cursor: pointer;
-  pointer-events: none;
 }
 
 .add-btn {
@@ -136,7 +135,6 @@ input::placeholder {
   flex: 0 0 18%;
   opacity: 1;
   margin-left: 10px;
-  pointer-events: auto;
 }
 
 .category-list{
@@ -155,8 +153,13 @@ input::placeholder {
 
 }
 
+.theme{
+  cursor: none;
+}
+
 .theme-parent{
    position: absolute;
+   margin: 0;
   bottom: 20px ;
   left: 20px;
   width: 30px;  /* ✅ must set width */
@@ -190,3 +193,25 @@ display: none;
   height: 100%;
 }
 
+.no-task{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  height: 50%;
+  padding: 50px;
+}
+
+.nothing{
+font-size: 20px;
+opacity: 90%;
+text-align: center;
+}
+
+.guide-msg{
+  font-size: 16px;
+  opacity: 75%;
+  text-align: center;
+  margin-top: 0;
+}

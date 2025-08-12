@@ -1,11 +1,15 @@
 const taskInput = document.getElementById("add-task");
 const addButton = document.getElementById("add-btn");
+const mainContainerElement = document.getElementById('main-container');
+const noTaskElement = document.getElementById('no-task')
+const taskContainerElement = document.getElementById('task-container');
 
 let taskList = JSON.parse(localStorage.getItem("task")) || [];
 let id = taskList.length > 0 ? taskList[taskList.length - 1].id : 0;
 
-addButton.addEventListener("click", () => {
-  if (noTagging(taskInput.value)) {
+
+function submitTask(){
+if (noTagging(taskInput.value)) {
     id++;
     const task = { id: id, toDo: noTagging(taskInput.value), categories : tagging(taskInput.value) };
     console.log(task);
@@ -14,12 +18,19 @@ addButton.addEventListener("click", () => {
     taskInput.value = "";
     loadTasks();
   }
+}
+
+addButton.addEventListener("click", () => {
+  submitTask()
 });
 
 taskInput.addEventListener("keydown", (e) => {
-  console.log();
-  
-})
+  if (e.key === "Enter") {
+    submitTask()
+  }
+  }
+
+)
 
 function createTasks() {
   const taskContainer = document.getElementById("task-container");
@@ -73,14 +84,26 @@ function createTasks() {
 function loadTasks() {
   console.log(taskList.length);
   console.log(taskList);
-  
-  const noTask = document.getElementById('no-task')
 
   if (taskList.length < 1) {
-    noTask.style.display = 'block'
+    // Add noTaskElement if not already in the DOM
+    if (!mainContainerElement.contains(noTaskElement)) {
+      mainContainerElement.appendChild(noTaskElement);
+    }
+    // Remove taskContainerElement only if it exists in the DOM
+    if (mainContainerElement.contains(taskContainerElement)) {
+      mainContainerElement.removeChild(taskContainerElement);
+    }
   } else {
+    // Add taskContainerElement if not already in the DOM
+    if (!mainContainerElement.contains(taskContainerElement)) {
+      mainContainerElement.appendChild(taskContainerElement);
+    }
+    // Remove noTaskElement only if it exists in the DOM
+    if (mainContainerElement.contains(noTaskElement)) {
+      mainContainerElement.removeChild(noTaskElement);
+    }
     createTasks();
-    noTask.style.display = 'none'
   }
 }
 
@@ -107,18 +130,16 @@ theme.addEventListener('click', () => {
     sun.style.display = 'none'
     moon.style.display = 'block'
     body.classList.toggle("dark");
-    
-
+    taskInput.focus()
   } else if (!theme.checked){
     console.log('light');
     sun.style.display = 'block'
     moon.style.display = 'none'
     body.classList.toggle("dark");
+    taskInput.focus()
   }
 
 })
-
-
 
 
 loadTasks();
