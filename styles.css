@@ -49,7 +49,7 @@ button {
   justify-content: space-between;
   margin-bottom: 10px;
   width: 80%;
-  margin-top: 40px;
+  margin-top: 70px;
 }
 
 input {
@@ -80,13 +80,13 @@ input::placeholder {
 .main-container {
   margin-top: 10px;
   width: 80%;
-  height: 65%;
+  height: 60%;
 }
 
 .task {
   display: flex;
   margin-bottom: 10px;
-
+  transition: all 0.3s ease;
 }
 
 .task-box {
@@ -111,6 +111,7 @@ input::placeholder {
 .task-item {
   margin-left: 0;
   overflow-wrap: anywhere;
+  display: inline-block;
 }
 
 .done-btn {
@@ -131,7 +132,7 @@ input::placeholder {
   flex: 0 0 18%;
 }
 
-.task:hover .done-btn {
+.task.active:hover .done-btn {
   flex: 0 0 18%;
   opacity: 1;
   margin-left: 10px;
@@ -150,22 +151,16 @@ input::placeholder {
 
 .nav{
   display: flex;
-
+  flex-direction: row;
+  justify-content: start;
 }
 
 .theme{
   cursor: none;
+  display: none;
 }
 
-.theme-parent{
-   position: absolute;
-   margin: 0;
-  bottom: 20px ;
-  left: 20px;
-  width: 30px;  /* ✅ must set width */
-  height: 30px; /* ✅ must set height */
 
-}
 
 .sun , .moon{
   fill:#e8e8e8;
@@ -185,12 +180,14 @@ input::placeholder {
 display: none;
 }
 
-.theme-child{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+
+.bi-trash{
+  display: none;
+  fill: #e8e8e8;
+ margin: 0;
+  opacity: 90%;
+  width: 25px; 
+  height: 25px;
 }
 
 .no-task{
@@ -263,5 +260,7 @@ text-align: center;
 }
 
 .done{
-  text-decoration: line-through;
+  text-decoration: line-through white ;
+  opacity: 30%;
 }
+
