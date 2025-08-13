@@ -107,6 +107,20 @@ function renderAllTasks() {
     doneBtn.innerText = "Done";
     taskElement.appendChild(doneBtn);
 
+    taskBox.addEventListener("click", () => {
+      const allDoneBtn = document.querySelectorAll(".done-btn");
+
+      if (doneBtn.classList.contains("done-active")) {
+        doneBtn.classList.remove("done-active");
+        return;
+      }
+
+      allDoneBtn.forEach((btn) => btn.classList.remove("done-active"));
+
+      doneBtn.classList.add("done-active");
+      console.log("clicked");
+    });
+
     const categoryList = document.createElement("ul");
     categoryList.classList.add("category-list");
     //console.log(taskList);
@@ -177,6 +191,8 @@ theme.addEventListener("click", () => {
 });
 
 const sectionElement = document.querySelectorAll(".sections-child");
+console.log(sectionElement);
+
 sectionElement.forEach((section) => {
   section.addEventListener("click", () => {
     sectionElement.forEach((item) => {
@@ -191,8 +207,7 @@ sectionElement.forEach((section) => {
 function switchSections(section) {
   if (section === "Active") {
     console.log("active");
-        renderActiveDoneTasks("task done");
-
+    renderActiveDoneTasks("task done");
   } else if (section === "All") {
     loadTasks();
     renderAllTasks();
@@ -216,6 +231,5 @@ function renderActiveDoneTasks(reversedState) {
   });
 }
 
-
-
 switchSections("All");
+//resetDone();

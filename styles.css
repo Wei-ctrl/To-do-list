@@ -97,6 +97,7 @@ input::placeholder {
   margin-bottom: 10px;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .task-box {
@@ -140,16 +141,23 @@ input::placeholder {
   cursor: pointer;
 }
 
-.add-btn {
-  flex: 0 0 18%;
-}
-
-.task.active:hover .done-btn {
+.done-active{
   flex: 0 0 18%;
   opacity: 1;
   margin-left: 10px;
 }
 
+.add-btn {
+  flex: 0 0 18%;
+}
+
+/*
+.task.active:hover .done-btn {
+  flex: 0 0 18%;
+  opacity: 1;
+  margin-left: 10px;
+}
+*/
 .category-list{
   display: flex;
   gap: 10px;
