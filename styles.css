@@ -102,6 +102,7 @@ button {
 
 .task {
   display: flex;
+  justify-content: space-between;
   margin-bottom: 10px;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
@@ -159,35 +160,60 @@ padding-left: 20px;
 
 .task-item {
   margin-left: 0;
+  width: 100%;
   overflow-wrap: anywhere;
   display: inline-block;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  background-color: transparent;
+  border: 0;
+    color: #e8e8e8;
+font-size: 18px;
+outline: 0;
+  box-shadow: none;
 }
 
 .btn-container{
 width: 0;
 flex: 0 0 0; 
+gap: 0;
 opacity: 0;
 margin-left: 0;
 display: flex;
-justify-content: space-between;
+
 transition: all 0.3s ease;
  overflow: hidden; /* hide content when closed */
 }
 
 .edit-btn, .done-btn{
   margin-left: 10px;
-  width: 100%;
+  flex: 1 1 50%;
+  transition: all 0.3s ease;
+
 }
 
 .edit-btn:hover, .done-btn:hover{
   background-color: #240a0a2f;
   color: rgb(255, 255, 255);
   overflow: auto;
-  
+}
+
+.edit-btn.save-btn{
+  flex: 1 1 100%;
+}
+
+.done-btn.save-hide{
+ flex: 0 0 0;       /* shrink width to zero */
+ 
+  opacity: 0;         /* fade out */
+  margin: 0;     /* remove gap space */
+  padding: 0;
+  overflow: hidden;
+  pointer-events: none; /* disable interaction */
 }
 
 .btn-active{
-    flex: 0 0 30%;
+  flex: 0 0 30%;
   opacity: 1;
 }
 

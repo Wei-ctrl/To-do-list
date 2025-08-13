@@ -97,9 +97,10 @@ function renderAllTasks() {
     taskBox.classList.add("task-box");
     taskElement.appendChild(taskBox);
 
-    const taskName = document.createElement("p");
+    const taskName = document.createElement("input");
     taskName.classList.add("task-item");
-    taskName.innerText = task.toDo;
+    taskName.value = task.toDo;
+    taskName.readOnly = true;
     taskBox.appendChild(taskName);
 
     const btnContainer = document.createElement("div");
@@ -111,12 +112,36 @@ function renderAllTasks() {
     editBtn.innerText = "Edit";
     btnContainer.appendChild(editBtn);
 
+    editBtn.addEventListener("click", () => {
+      console.log("clicked");
+      if (editBtn.classList.contains("save-btn")) {
+        console.log("saved");
+        editBtn.classList.remove("save-btn");
+        doneBtn.classList.remove("save-hide");
+        editBtn.textContent = "Edit";
+        taskName.readOnly = true;
+        console.log(task);
+        console.log(taskName.value);
+        task.toDo = taskName.value;
+//btnContainer.classList.remove("btn-active");
+        localStorage.setItem("task", JSON.stringify(taskList));
+
+        return;
+      }
+      taskName.removeAttribute("readonly");
+      taskName.focus();
+      editBtn.textContent = "Save";
+      editBtn.classList.add("save-btn");
+      doneBtn.classList.add("save-hide");
+    });
+
     const doneBtn = document.createElement("button");
     doneBtn.classList.add("done-btn");
     doneBtn.innerText = "Done";
     btnContainer.appendChild(doneBtn);
 
     taskBox.addEventListener("click", () => {
+      taskName.readOnly = true;
       const allBtn = document.querySelectorAll(".btn-container");
       if (btnContainer.classList.contains("btn-active")) {
         btnContainer.classList.remove("btn-active");
@@ -130,26 +155,20 @@ function renderAllTasks() {
     });
 
     taskBox.addEventListener("click", () => {
-  const allBoxes = document.querySelectorAll(".task-box");
+      const allBoxes = document.querySelectorAll(".task-box");
 
-  if (taskBox.classList.contains("no-hover")) {
-    // Unlock hover for this one
-    taskBox.classList.remove("no-hover");
-    return;
-  }
+      if (taskBox.classList.contains("no-hover")) {
+        // Unlock hover for this one
+        taskBox.classList.remove("no-hover");
+        return;
+      }
 
-  // Remove hover lock from all
-  allBoxes.forEach(box => box.classList.remove("no-hover"));
+      // Remove hover lock from all
+      allBoxes.forEach((box) => box.classList.remove("no-hover"));
 
-  // Lock hover for the clicked one
-  taskBox.classList.add("no-hover");
-});
-
-  editBtn.addEventListener('click', () => {
-    console.log('clicked');
-    
-
-  })
+      // Lock hover for the clicked one
+      taskBox.classList.add("no-hover");
+    });
 
     const categoryList = document.createElement("ul");
     categoryList.classList.add("category-list");
@@ -260,8 +279,6 @@ function renderActiveDoneTasks(reversedState) {
     }
   });
 }
-
-
 
 switchSections("All");
 //resetDone();
