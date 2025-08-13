@@ -72,7 +72,7 @@ button {
   margin-top: 70px;
 }
 
-input {
+.task-input {
   width: 100%;
   height: 70px;
   font-size: 20px;
@@ -86,7 +86,9 @@ input {
   box-shadow: none;
 }
 
-input::placeholder {
+
+
+.task-input::placeholder {
   color: #e8e8e89e;
 }
 
@@ -106,6 +108,19 @@ input::placeholder {
   cursor: pointer;
 }
 
+.edit-field{
+    width: 100%;
+padding-left: 20px;
+  padding-right: 50px;
+    height:60.7px;
+  font-size: 18px;
+  background-color: #240a0a1f;
+  color: #e8e8e8;
+  border: 0px solid #00000000;
+  border-radius: 13px;
+   outline: 0;
+  box-shadow: none;
+}
 
 .task-box {
   display: flex;
@@ -115,7 +130,7 @@ input::placeholder {
   padding-left: 20px;
   padding-right: 50px;
 
-  height: auto;
+  height: 10%;
   font-size: 18px;
   background-color: #240a0a1f;
   color: #e8e8e8;
@@ -127,6 +142,8 @@ input::placeholder {
   box-shadow: none;
 }
 
+
+
 .task-box:hover {
   background-color: #240a0a2f;
   transform: scale(1.035);
@@ -134,7 +151,7 @@ input::placeholder {
   overflow: auto;
 }
 
-.task-box.btn-clicked{
+.task-box.no-hover:hover{
   background-color: #240a0a1f;
   transform: none;
   color: #e8e8e8;
@@ -160,6 +177,13 @@ transition: all 0.3s ease;
 .edit-btn, .done-btn{
   margin-left: 10px;
   width: 100%;
+}
+
+.edit-btn:hover, .done-btn:hover{
+  background-color: #240a0a2f;
+  color: rgb(255, 255, 255);
+  overflow: auto;
+  
 }
 
 .btn-active{

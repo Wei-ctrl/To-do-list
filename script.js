@@ -102,37 +102,54 @@ function renderAllTasks() {
     taskName.innerText = task.toDo;
     taskBox.appendChild(taskName);
 
-    const btnContainer = document.createElement('div')
-    btnContainer.classList.add('btn-container')
-    taskElement.appendChild(btnContainer)
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("btn-container");
+    taskElement.appendChild(btnContainer);
 
-    const editBtn = document.createElement("button")
-    editBtn.classList.add('edit-btn')
-    editBtn.innerText = "Edit"
-    btnContainer.appendChild(editBtn)
+    const editBtn = document.createElement("button");
+    editBtn.classList.add("edit-btn");
+    editBtn.innerText = "Edit";
+    btnContainer.appendChild(editBtn);
 
     const doneBtn = document.createElement("button");
     doneBtn.classList.add("done-btn");
     doneBtn.innerText = "Done";
     btnContainer.appendChild(doneBtn);
 
-
     taskBox.addEventListener("click", () => {
       const allBtn = document.querySelectorAll(".btn-container");
-
       if (btnContainer.classList.contains("btn-active")) {
         btnContainer.classList.remove("btn-active");
-              taskBox.classList.remove('btn-clicked')
-
         return;
       }
 
       allBtn.forEach((btn) => btn.classList.remove("btn-active"));
 
       btnContainer.classList.add("btn-active");
-      taskBox.classList.add('btn-clicked')
       console.log("clicked");
     });
+
+    taskBox.addEventListener("click", () => {
+  const allBoxes = document.querySelectorAll(".task-box");
+
+  if (taskBox.classList.contains("no-hover")) {
+    // Unlock hover for this one
+    taskBox.classList.remove("no-hover");
+    return;
+  }
+
+  // Remove hover lock from all
+  allBoxes.forEach(box => box.classList.remove("no-hover"));
+
+  // Lock hover for the clicked one
+  taskBox.classList.add("no-hover");
+});
+
+  editBtn.addEventListener('click', () => {
+    console.log('clicked');
+    
+
+  })
 
     const categoryList = document.createElement("ul");
     categoryList.classList.add("category-list");
@@ -243,6 +260,8 @@ function renderActiveDoneTasks(reversedState) {
     }
   });
 }
+
+
 
 switchSections("All");
 //resetDone();
