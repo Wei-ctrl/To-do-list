@@ -102,22 +102,35 @@ function renderAllTasks() {
     taskName.innerText = task.toDo;
     taskBox.appendChild(taskName);
 
+    const btnContainer = document.createElement('div')
+    btnContainer.classList.add('btn-container')
+    taskElement.appendChild(btnContainer)
+
+    const editBtn = document.createElement("button")
+    editBtn.classList.add('edit-btn')
+    editBtn.innerText = "Edit"
+    btnContainer.appendChild(editBtn)
+
     const doneBtn = document.createElement("button");
     doneBtn.classList.add("done-btn");
     doneBtn.innerText = "Done";
-    taskElement.appendChild(doneBtn);
+    btnContainer.appendChild(doneBtn);
+
 
     taskBox.addEventListener("click", () => {
-      const allDoneBtn = document.querySelectorAll(".done-btn");
+      const allBtn = document.querySelectorAll(".btn-container");
 
-      if (doneBtn.classList.contains("done-active")) {
-        doneBtn.classList.remove("done-active");
+      if (btnContainer.classList.contains("btn-active")) {
+        btnContainer.classList.remove("btn-active");
+              taskBox.classList.remove('btn-clicked')
+
         return;
       }
 
-      allDoneBtn.forEach((btn) => btn.classList.remove("done-active"));
+      allBtn.forEach((btn) => btn.classList.remove("btn-active"));
 
-      doneBtn.classList.add("done-active");
+      btnContainer.classList.add("btn-active");
+      taskBox.classList.add('btn-clicked')
       console.log("clicked");
     });
 
