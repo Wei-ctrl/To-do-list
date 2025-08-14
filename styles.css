@@ -360,12 +360,8 @@ text-align: center;
 }
 
 .hide-task{
-  visibility: hidden;
-  height: 0;
-  margin: 0;
-  padding: 0;
-  opacity: 0;
-  overflow: hidden;
+  -webkit-display: none;
+  display: none;
 }
 
 .task-box.done{

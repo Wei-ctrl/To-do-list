@@ -333,6 +333,7 @@ theme.addEventListener("click", () => {
   }
 });
 
+
 const sectionElement = document.querySelectorAll(".sections-child");
 console.log(sectionElement);
 
