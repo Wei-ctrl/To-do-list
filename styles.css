@@ -360,7 +360,7 @@ text-align: center;
 }
 
 .hide-task{
-  display: none;
+  display: none !important;
 }
 
 .task-box.done{
