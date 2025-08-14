@@ -8,6 +8,8 @@ const taskContainer = document.getElementById("task-container");
 let taskList = JSON.parse(localStorage.getItem("task")) || [];
 let id = taskList.length > 0 ? taskList[taskList.length - 1].id : 0;
 
+let currentSection = 'all'
+
 function loadTasks() {
   //console.log(taskList.length);
   //console.log(taskList);
@@ -255,10 +257,18 @@ function renderAllTasks() {
       if (task.state === 'active') {
          task.state = "done";
       localStorage.setItem("task", JSON.stringify(taskList));
+      console.log(currentSection);
+      
+                         renderTaskState()
+
       updateViewAfterChange();
+
       } else if(task.state === 'done') {
         taskList = taskList.filter((item) => item.id !== task.id);
       localStorage.setItem("task", JSON.stringify(taskList));
+            console.log(currentSection);
+                  // renderTaskState()
+
       updateViewAfterChange();
 
       }
@@ -276,9 +286,19 @@ function renderAllTasks() {
 function updateViewAfterChange() {
   loadTasks();
   if (taskList.length > 0) {
-    renderAllTasks();
+    if (currentSection === 'all') {
+          renderAllTasks();
+          
+    } else if(currentSection === 'active') {
+      renderActiveDoneTasks('active')
+    } else if (currentSection === 'done'){
+            renderActiveDoneTasks('done')
+    }
+
   }
 }
+
+
 
 function tagging(text) {
   let matches = text.match(/#\w+/g);
@@ -329,32 +349,39 @@ sectionElement.forEach((section) => {
 
 function switchSections(section) {
   if (section === "Active") {
-    console.log("active");
-    renderActiveDoneTasks("task done");
+    //console.log("active");
+    currentSection = 'active'
+    renderActiveDoneTasks("active");
   } else if (section === "All") {
+    currentSection = 'all'
     loadTasks();
     renderAllTasks();
-    console.log("all");
+    //console.log("all");
+    
   } else if (section === "Done") {
-    renderActiveDoneTasks("task active");
-    console.log("done");
+    currentSection = 'done'
+    renderActiveDoneTasks("done");
+    //console.log("done");
   }
+                console.log(currentSection);
+
 }
 
-function renderActiveDoneTasks(reversedState) {
+function renderActiveDoneTasks(state) {
+  renderAllTasks()
   const tasks = document.querySelectorAll(".task");
   let arr = Array.from(tasks);
   arr.forEach((item) => {
-    console.log(item.className);
-    
-    if (item.className === reversedState) {
-      console.log(`hide ${item}`);
-      item.classList.add("hide-task");
+    if (!item.classList.contains(state)) {
+            item.classList.add("hide-task");
     } else {
-      item.classList.remove("hide-task");
+            item.classList.remove("hide-task");
     }
   });
 }
+
+
+
 
 switchSections("All");
 //resetDone();
