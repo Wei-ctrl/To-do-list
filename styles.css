@@ -354,13 +354,18 @@ text-align: center;
 
 .sections-child.active{
   width: 200%;
-   opacity: 100%;
+  opacity: 100%;
   background-color:#240a0a1f;
 
 }
 
 .hide-task{
-  display: none !important;
+  visibility: hidden;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  overflow: hidden;
 }
 
 .task-box.done{
