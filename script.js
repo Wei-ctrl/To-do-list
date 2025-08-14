@@ -76,7 +76,7 @@ function renderAllTasks() {
   if (!taskList || taskList.length === 0) {
     return;
   }
-
+ 
   taskContainer.innerHTML = "";
 
   const reverseTasks = [...taskList].reverse();
@@ -86,13 +86,7 @@ function renderAllTasks() {
     taskElement.id = task.id;
     taskContainer.appendChild(taskElement);
 
-    if (task.state === "done") {
-      taskElement.classList.add("done");
-      //taskName.classList.add('done');
-    } else if (task.state === "active") {
-      taskElement.classList.add("active");
-    }
-
+ 
     const taskBox = document.createElement("div");
     taskBox.classList.add("task-box");
     taskElement.appendChild(taskBox);
@@ -154,7 +148,22 @@ function renderAllTasks() {
     }
 
     // Click listener
-    editBtn.addEventListener("click", toggleEditSave);
+    editBtn.addEventListener("click", () => {
+
+      
+      if(editBtn.classList.contains('undone-btn')) {
+        console.log('undone logic');
+        task.state = 'active'
+        updateViewAfterChange()
+      } else {
+      toggleEditSave() //edit here
+
+      }
+    }
+
+
+
+    );
 
     // Enter key listener
     taskName.addEventListener("keydown", (e) => {
@@ -167,6 +176,28 @@ function renderAllTasks() {
     doneBtn.classList.add("done-btn");
     doneBtn.innerText = "Done";
     btnContainer.appendChild(doneBtn);
+
+    renderTaskState()
+
+
+    function renderTaskState() {
+       if (task.state === "done") {
+      taskElement.classList.add("done");   //control undone here
+      taskBox.classList.add('done')    //control undone here
+      doneBtn.textContent = 'Remove'; //control undone here
+      doneBtn.classList.add('remove-btn')
+      editBtn.textContent = "Undone";
+      editBtn.classList.add('undone-btn')
+    } else if (task.state === "active") {
+      taskElement.classList.add("active");
+      taskBox.classList.remove('done')    //control undone here
+      doneBtn.textContent = 'Done'; //control undone here
+      doneBtn.classList.remove('remove-btn')
+      editBtn.textContent = "Edit";
+      editBtn.classList.remove('undone-btn')
+    }
+    }
+
 
     taskBox.addEventListener("click", (e) => {
       if(taskBox.classList.contains('editing')){
@@ -220,16 +251,27 @@ function renderAllTasks() {
       //localStorage.setItem("task", JSON.stringify(taskList));
       //set the state
       //taskList.filter((item) => item.id !== task.id)[0].state = 'done'
-      task.state = "done";
-      //console.log(task.id);
 
+      if (task.state === 'active') {
+         task.state = "done";
       localStorage.setItem("task", JSON.stringify(taskList));
       updateViewAfterChange();
+      } else if(task.state === 'done') {
+        taskList = taskList.filter((item) => item.id !== task.id);
+      localStorage.setItem("task", JSON.stringify(taskList));
+      updateViewAfterChange();
+
+      }
+
+     
       //taskContainer.removeChild(taskElement);
       ///////loadTasks()
     });
   });
 }
+
+
+  
 
 function updateViewAfterChange() {
   loadTasks();
@@ -303,6 +345,8 @@ function renderActiveDoneTasks(reversedState) {
   const tasks = document.querySelectorAll(".task");
   let arr = Array.from(tasks);
   arr.forEach((item) => {
+    console.log(item.className);
+    
     if (item.className === reversedState) {
       console.log(`hide ${item}`);
       item.classList.add("hide-task");
