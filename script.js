@@ -112,27 +112,55 @@ function renderAllTasks() {
     editBtn.innerText = "Edit";
     btnContainer.appendChild(editBtn);
 
-    editBtn.addEventListener("click", () => {
-      console.log("clicked");
+    let isEditing = null;
+
+    function toggleEditSave() {
       if (editBtn.classList.contains("save-btn")) {
+        // Save mode → back to Edit
+        document.querySelectorAll('.task-box').forEach((item) => {
+          item.classList.toggle('editing')
+        })
+        
         console.log("saved");
+        isEditing = false;
+        console.log('unlocked tasks');
+
+        taskName.classList.toggle('edit-active')
         editBtn.classList.remove("save-btn");
         doneBtn.classList.remove("save-hide");
         editBtn.textContent = "Edit";
         taskName.readOnly = true;
-        console.log(task);
-        console.log(taskName.value);
-        task.toDo = taskName.value;
-//btnContainer.classList.remove("btn-active");
-        localStorage.setItem("task", JSON.stringify(taskList));
 
-        return;
+        task.toDo = taskName.value;
+        localStorage.setItem("task", JSON.stringify(taskList));
+      } else {
+        // Edit mode → to Save
+        isEditing = true;
+        console.log(taskBox);
+        document.querySelectorAll('.task-box').forEach((item) => {
+          item.classList.toggle('editing')
+        })
+        
+        taskName.classList.toggle('edit-active')
+        taskName.removeAttribute("readonly");
+        taskName.focus();
+        editBtn.textContent = "Save";
+        editBtn.classList.add("save-btn");
+        doneBtn.classList.add("save-hide");
+
+        console.log('locked tasks');
+        
       }
-      taskName.removeAttribute("readonly");
-      taskName.focus();
-      editBtn.textContent = "Save";
-      editBtn.classList.add("save-btn");
-      doneBtn.classList.add("save-hide");
+    }
+
+    // Click listener
+    editBtn.addEventListener("click", toggleEditSave);
+
+    // Enter key listener
+    taskName.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        toggleEditSave();
+      }
     });
 
     const doneBtn = document.createElement("button");
@@ -140,7 +168,10 @@ function renderAllTasks() {
     doneBtn.innerText = "Done";
     btnContainer.appendChild(doneBtn);
 
-    taskBox.addEventListener("click", () => {
+    taskBox.addEventListener("click", (e) => {
+      if(taskBox.classList.contains('editing')){
+        return
+      }
       taskName.readOnly = true;
       const allBtn = document.querySelectorAll(".btn-container");
       if (btnContainer.classList.contains("btn-active")) {
@@ -151,7 +182,8 @@ function renderAllTasks() {
       allBtn.forEach((btn) => btn.classList.remove("btn-active"));
 
       btnContainer.classList.add("btn-active");
-      console.log("clicked");
+      
+
     });
 
     taskBox.addEventListener("click", () => {
